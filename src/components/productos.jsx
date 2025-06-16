@@ -3,9 +3,8 @@ import '../estilos/productos.css';
 import Tarjeta from "./tarjetaProducto";
 
 
-function Productos({funcionCarrito}) {
+function Productos() {
     const [productos, setProductos] = useState([]);
-    //const [productosCarrito, setProductosCarrito] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
 
@@ -24,25 +23,6 @@ function Productos({funcionCarrito}) {
         });
     },
     []);
-
-    {/* function funcionCarrito(producto) {
-        
-        const existe = productosCarrito.find(p => p.id === producto.id);
-        if (existe) {
-            const carritoActualizado = productosCarrito.map((p) => {
-                if (p.id === producto.id) {
-                    const productoActualizado = { ...p, cantidad: p.cantidad + producto.cantidad }
-                    return productoActualizado;
-                } else {
-                    return p;
-                }
-            })
-
-            setProductosCarrito(carritoActualizado);
-        } else {
-            setProductosCarrito([...productosCarrito, producto])
-        };
-    } */}
 
     function funcionEnProductos(producto) {
         funcionCarrito(producto);

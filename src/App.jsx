@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import Productos from './components/productos';
 import Contacto from './components/contacto';
 import Carrito from './components/carrito';
+import TarjetaProductoDetalle from './components/tarjetaProductoDetalle';
 
 function App() {
   const [productosCarrito, setProductosCarrito] = useState([]);
@@ -42,9 +43,10 @@ function App() {
         <Nav productosCarrito={productosCarrito}/>
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/productos' element={<Productos funcionCarrito={funcionCarrito}/>}/>
+          <Route path='/productos' element={<Productos />}/>
           <Route path='/contacto' element={<Contacto />}/>
           <Route path='/carrito' element={<Carrito productos={productosCarrito} funcionBorrar={borrarProductos}/>}/>
+          <Route path='/productos/:id' element={<TarjetaProductoDetalle funcionCarrito={funcionCarrito}/>}/>
         </Routes>
         <Footer />
       </div>
