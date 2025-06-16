@@ -1,0 +1,61 @@
+.tarjeta {
+    width: 25vw;
+    border: solid gray .1rem;
+    border-radius: .5rem;
+    padding: .5rem;
+    overflow: hidden;
+
+    h2 {
+        text-transform: capitalize;
+    }
+
+    .descripcion {
+        text-align: left;
+        font-size: smaller;
+        font-weight: 100;
+        padding-bottom: .5rem;
+    }
+
+    .precio {
+        font-size: medium;
+        font-weight: bold;
+        text-align: end;
+        padding-bottom: .5rem;
+    }
+
+    img {
+        max-width: 110%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: -.5rem;
+    }
+    
+    .botonera {
+        display: flex;
+        justify-content: center;
+        gap: .2rem;
+
+        button {
+            padding: .5rem;
+            cursor: pointer;
+            border: solid gray .1rem;
+            border-radius: .2rem;
+        }
+
+        button:hover {
+            border: solid darkslategrey .1rem;
+        }
+
+        input {
+            width: 2rem;
+            height: 2rem;
+            text-align: center;
+        }
+
+        input::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+            appearance: none;
+        }
+    }
+
+}

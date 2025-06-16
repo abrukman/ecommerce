@@ -1,0 +1,10 @@
+footer {
+    height: 1.5rem;
+    width: 100vw;
+    background-color: #3a99d9;
+    text-align: center;
+}
+
+.license {
+    transform:rotateX(90)
+}

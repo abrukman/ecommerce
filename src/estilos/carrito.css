@@ -1,0 +1,74 @@
+.carritoContainer {
+    width: 100%;
+    border-collapse: collapse;
+    row-gap: .1rem;
+}
+
+.encabezado {
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: solid 2px black;
+}
+
+.total {
+    font-weight: bold;
+    text-transform: uppercase;
+    border-top: solid 2px black;
+    td {
+        border-bottom: none;
+    }
+}
+
+.start {
+    text-align: start;
+}
+
+td {
+    border-bottom: solid darkslategrey 1px;
+    vertical-align: middle;
+    text-align: end;
+
+    button {
+        font-size: large;
+        padding: 1rem;
+        background-color: red;
+        color: white;
+        font-weight: bolder;
+        border: none;
+        border-radius: .3rem;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+    }
+
+    button:hover {
+        background-color: darkred;
+    }
+}
+
+
+.productoRow {
+    width: 100%;
+
+    .imagenCell {
+        width: 10%;
+        img {
+            max-width: 100%;
+            margin: .3rem 0;
+            border: solid gray .1rem;
+            border-radius: .3rem;
+            vertical-align: middle;
+        }
+    }
+    
+    .nombreCell {
+        text-align: start;
+        text-transform: capitalize;
+        padding-left: 1rem;
+    }
+}
+
+.vacio {
+    text-align: center;
+    font-size: larger;
+    font-weight: bolder;    
+}
