@@ -41,7 +41,7 @@ function TarjetaProductoDetalle({funcionCarrito}) {
         }
 
     function agregarAlCarrito() {
-        funcionCarrito({...producto, cantidad});
+        funcionCarrito({...producto, cantidad})
     };
 
     function sumarCantidad() {
