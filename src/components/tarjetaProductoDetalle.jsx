@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { CarritoContext } from "../contexts/CarritoContext";
 
-function TarjetaProductoDetalle({funcionCarrito}) {
+function TarjetaProductoDetalle({}) {
+    const {agregarAlCarrito} = useContext(CarritoContext);
     const {id} = useParams();
     const [producto, setProducto] = useState(null);
     const [error, setError] = useState(null);
@@ -13,10 +15,8 @@ function TarjetaProductoDetalle({funcionCarrito}) {
             .then((respuesta) => (respuesta.json()))
             .then((datos) => {
                 const productoEncontrado = datos.find((item) => item.id === id);
-                console.log(productoEncontrado)
                 if (productoEncontrado) {
                     setProducto(productoEncontrado);
-                    console.log(productoEncontrado);
                 } else {
                     setError('producto no encontrado');
                 }
@@ -40,8 +40,10 @@ function TarjetaProductoDetalle({funcionCarrito}) {
             return null;
         }
 
-    function agregarAlCarrito() {
-        funcionCarrito({...producto, cantidad})
+    function funcionCarrito() {
+        //if (cantidad > 1) return;
+        //alert('agregaste ' + producto.cantidad + producto.name + ' al carrito');
+        agregarAlCarrito({...producto, cantidad})
     };
 
     function sumarCantidad() {
@@ -62,7 +64,7 @@ function TarjetaProductoDetalle({funcionCarrito}) {
             <p className='precio'>${producto.precio}</p>
             <div className='botonera'>
                 
-                <button onClick={agregarAlCarrito}>agregar al carrito</button>
+                <button onClick={funcionCarrito}>agregar al carrito</button>
                 <div>
                     <input type="number" name="cantidad" id="" value={cantidad} min='0'/>
                     <button onClick={sumarCantidad}>+</button>

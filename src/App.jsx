@@ -55,7 +55,7 @@ function App() {
         <Header />
         <Nav productosCarrito={productosCarrito}/>
         <Routes>
-          <Route path='/login' element={<Login setAdmin={handleAdmin} setUser={handleUser}/>}/>
+          <Route path='/login' element={<Login user={usuarioLogueado} admin={adminLogueado} setAdmin={handleAdmin} setUser={handleUser}/>}/>
           <Route path='/' element={<Home />}/>
           <Route path='/productos' element={<Productos />}/>
           <Route path='/contacto' element={<Contacto />}/>

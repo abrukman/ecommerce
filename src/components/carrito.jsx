@@ -1,7 +1,11 @@
+import { useContext } from 'react';
 import '../estilos/carrito.css';
-export default function Carrito({productos, funcionBorrar}) {
+import { CarritoContext } from '../contexts/CarritoContext';
 
-    const total = productos.reduce((subtotal, producto) => 
+export default function Carrito({}) {
+    const {productosCarrito, vaciarCarrito, borrarProductos} = useContext(CarritoContext);
+
+    const total = productosCarrito.reduce((subtotal, producto) => 
         subtotal + producto.precio * producto.cantidad, 0
     );
 
@@ -22,7 +26,7 @@ export default function Carrito({productos, funcionBorrar}) {
                 </tr> : <></>}
             </thead>
             <tbody>
-                {productos.length > 0 ? productos.map((producto) => {
+                {productosCarrito.length > 0 ? productosCarrito.map((producto) => {
                 
                     return(
                         <tr className='productoRow' key={producto.id}>
@@ -31,12 +35,12 @@ export default function Carrito({productos, funcionBorrar}) {
                             <td>{producto.cantidad}</td>
                             <td>${producto.precio}</td>
                             <td>${producto.precio*producto.cantidad}</td>
-                            <td><button onClick={() => funcionBorrar(producto.id)}>X</button></td>
+                            <td><button onClick={() => borrarProductos(producto.id)}>X</button></td>
                         </tr>
                     )
                 }) :
                 <tr><td className='vacio' colSpan={6}>Carrito vacío</td></tr>}
-                {total > 0 ? <tr className='total'><td></td><td></td><td></td><td>total</td><td>${total}</td><td></td></tr> : <></>}
+                {total > 0 ? <tr className='total'><td></td><td></td><td></td><td>total</td><td>${total}</td><td><button onClick={vaciarCarrito}>X</button></td></tr> : <></>}
             </tbody>
         </table>
     )
