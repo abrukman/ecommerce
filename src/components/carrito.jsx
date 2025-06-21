@@ -9,10 +9,6 @@ export default function Carrito({}) {
         subtotal + producto.precio * producto.cantidad, 0
     );
 
-    /* function borrarProducto(producto) {
-        funcionBorrar(producto.id)
-    }; */
-
     return(
         <table className='carritoContainer'>
             <thead>

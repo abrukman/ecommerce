@@ -13,7 +13,6 @@ import Login from './components/login';
 import Admin from './components/admin';
 
 function App() {
-  const [productosCarrito, setProductosCarrito] = useState([]);
   const [usuarioLogueado, setUsuarioLogueado] = useState(false);
   const [adminLogueado, setAdminLogueado] = useState(false);
 
@@ -25,42 +24,18 @@ function App() {
     setUsuarioLogueado(!usuarioLogueado);
   }
 
-  function funcionCarrito(producto) {
-        
-        const existe = productosCarrito.find(p => p.id === producto.id);
-        if (existe) {
-            const carritoActualizado = productosCarrito.map((p) => {
-                if (p.id === producto.id) {
-                    const productoActualizado = { ...p, cantidad: p.cantidad + producto.cantidad }
-                    return productoActualizado;
-                } else {
-                    return p;
-                }
-            })
-
-            setProductosCarrito(carritoActualizado);
-        } else {
-            setProductosCarrito([...productosCarrito, producto])
-        };
-        alert('has agregado ' + producto.cantidad + ' ' + producto.name + ' al carrito');
-    };
-
-    function borrarProductos(id) {
-      setProductosCarrito(productosCarrito.filter((p) => p.id !== id))
-    };
-
   return (
     <Router>
       <div>
         <Header />
-        <Nav productosCarrito={productosCarrito}/>
+        <Nav />
         <Routes>
           <Route path='/login' element={<Login user={usuarioLogueado} admin={adminLogueado} setAdmin={handleAdmin} setUser={handleUser}/>}/>
           <Route path='/' element={<Home />}/>
           <Route path='/productos' element={<Productos />}/>
           <Route path='/contacto' element={<Contacto />}/>
-          <Route path='/carrito' element={usuarioLogueado ? <Carrito productos={productosCarrito} funcionBorrar={borrarProductos}/> : <Navigate to={'/login'} replace/>}/>
-          <Route path='/productos/:id' element={<TarjetaProductoDetalle funcionCarrito={funcionCarrito}/>}/>
+          <Route path='/carrito' element={usuarioLogueado ? <Carrito /> : <Navigate to={'/login'} replace/>}/>
+          <Route path='/productos/:id' element={<TarjetaProductoDetalle />}/>
           <Route path='/admin' element={adminLogueado ? <Admin /> : <Navigate to={'/login'} replace/>}/>
         </Routes>
         <Footer />

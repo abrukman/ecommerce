@@ -41,8 +41,6 @@ function TarjetaProductoDetalle({}) {
         }
 
     function funcionCarrito() {
-        //if (cantidad > 1) return;
-        //alert('agregaste ' + producto.cantidad + producto.name + ' al carrito');
         agregarAlCarrito({...producto, cantidad})
     };
 
