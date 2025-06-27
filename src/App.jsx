@@ -11,18 +11,10 @@ import Carrito from './components/carrito';
 import TarjetaProductoDetalle from './components/tarjetaProductoDetalle';
 import Login from './components/login';
 import Admin from './components/admin';
+import { useAuthContext } from './contexts/AuthContext';
 
 function App() {
-  const [usuarioLogueado, setUsuarioLogueado] = useState(false);
-  const [adminLogueado, setAdminLogueado] = useState(false);
-
-  function handleAdmin() {
-    setAdminLogueado(!adminLogueado);
-  };
-
-  function handleUser() {
-    setUsuarioLogueado(!usuarioLogueado);
-  }
+  const {user} = useAuthContext();
 
   return (
     <Router>
@@ -30,13 +22,13 @@ function App() {
         <Header />
         <Nav />
         <Routes>
-          <Route path='/login' element={<Login user={usuarioLogueado} admin={adminLogueado} setAdmin={handleAdmin} setUser={handleUser}/>}/>
+          <Route path='/login' element={<Login />}/>
           <Route path='/' element={<Home />}/>
           <Route path='/productos' element={<Productos />}/>
           <Route path='/contacto' element={<Contacto />}/>
-          <Route path='/carrito' element={usuarioLogueado ? <Carrito /> : <Navigate to={'/login'} replace/>}/>
+          <Route path='/carrito' element={user ? <Carrito /> : <Navigate to={'/login'} replace/>}/>
           <Route path='/productos/:id' element={<TarjetaProductoDetalle />}/>
-          <Route path='/admin' element={adminLogueado ? <Admin /> : <Navigate to={'/login'} replace/>}/>
+          <Route path='/admin' element={user ? <Admin /> : <Navigate to={'/login'} replace/>}/>
         </Routes>
         <Footer />
       </div>
