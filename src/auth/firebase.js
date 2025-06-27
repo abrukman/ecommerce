@@ -18,11 +18,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-
-
 const auth = getAuth();
 
-export function crearUsuario(){
+export function crearUsuario(email, password){
    createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed up
@@ -32,6 +30,7 @@ export function crearUsuario(){
     // ...
   })
   .catch((error) => {
+    console.log(error.code, error.message);
     const errorCode = error.code;
     const errorMessage = error.message;
     // ..
