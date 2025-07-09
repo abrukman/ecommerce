@@ -21,7 +21,7 @@ export function CarritoProvider({children}) {
         } else {
             setProductosCarrito([...productosCarrito, producto])
         };
-        alert('has agregado ' + producto.cantidad + ' ' + producto.name + ' al carrito');
+        alert('has agregado ' + producto.cantidad + ' ' + producto.nombre + ' al carrito');
     };
 
     const vaciarCarrito = () => {

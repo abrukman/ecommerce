@@ -56,8 +56,8 @@ function TarjetaProductoDetalle({}) {
 
     return(
         <div className='tarjeta' key={producto.id}>
-            <img src={producto.imagen} alt={'foto de '+producto.name}/>
-            <h2>{producto.name}</h2>
+            <img src={producto.imagen} alt={'foto de '+producto.nombre}/>
+            <h2>{producto.nombre}</h2>
             <p className='descripcion'>{producto.descripcion}</p>
             <p className='precio'>${producto.precio}</p>
             <div className='botonera'>

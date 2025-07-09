@@ -26,8 +26,8 @@ export default function Carrito({}) {
                 
                     return(
                         <tr className='productoRow' key={producto.id}>
-                            <td className='imagenCell'><img src={producto.imagen} alt={'foto de '+producto.name} /></td>
-                            <td className='nombreCell'>{producto.name}</td>
+                            <td className='imagenCell'><img src={producto.imagen} alt={'foto de '+producto.nombre} /></td>
+                            <td className='nombreCell'>{producto.nombre}</td>
                             <td>{producto.cantidad}</td>
                             <td>${producto.precio}</td>
                             <td>${producto.precio*producto.cantidad}</td>
