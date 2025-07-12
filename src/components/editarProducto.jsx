@@ -1,17 +1,24 @@
-import { useState } from "react";
-import { validarFormulario } from "../helpers/validarFormulario";
+import { useParams } from "react-router-dom";
 import { useProductosContext } from "../contexts/ProductosContext";
-
-function FormularioProducto() {
-    const {agregarProducto} = useProductosContext();
-    const [producto, setProducto] = useState({
-        nombre:'',
-        imagen:'',
-        precio:'',
-        descripcion:''
-    });
-
+import { useEffect, useState } from "react";
+import { validarFormulario } from '../helpers/validarFormulario';
+function EditarProducto() {
+    const {id} = useParams();
+    const {obtenerProducto, productoEncontrado, actualizarProducto} = useProductosContext();
+    const [producto, setProducto] = useState(productoEncontrado);
+    const [cargando, setCargando] = useState(true);
     const [errores, setErrores] = useState({});
+
+    useEffect(() => {
+        obtenerProducto(id)
+        .then(() => {
+            setCargando(false);
+        })
+        .catch((error) => {
+            setError(error.message);
+            setCargando(false);
+        })
+    },[id]);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -20,25 +27,19 @@ function FormularioProducto() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(validarFormulario(producto));
         const erroresValidacion = validarFormulario(producto);
-        console.log(erroresValidacion);
         setErrores(erroresValidacion);
-        if (Object.keys(erroresValidacion).length === 0) {
-            agregarProducto(producto);
-            console.log(producto);
-            setProducto({
-                nombre:'',
-                imagen:'',
-                precio:'',
-                descripcion:''    
-            });
-            setErrores({});
-        }        
+        if(Object.keys(erroresValidacion).length === 0) {
+           if (confirm(`Modificar los datos de ${producto.nombre}?`)) {
+            actualizarProducto(producto);
+            alert(`${producto.nombre} ha sido actualizado correctamente`);
+           };
+        };
     };
-  
-    return (
-        <form onSubmit={handleSubmit}>
+
+
+  return (
+    <form onSubmit={handleSubmit}>
             <h2>Agregar producto</h2>
             <label>Nombre: </label>
             <input 
@@ -77,10 +78,10 @@ function FormularioProducto() {
                 {errores.descripcion && <p style={{color: 'red'}}>{errores.descripcion}</p>}
             <button 
                 type="submit"
-                >Agregar producto
+                >Guardar
             </button>
         </form>
-    )
-}
+  )
+};
 
-export default FormularioProducto;
+export default EditarProducto;

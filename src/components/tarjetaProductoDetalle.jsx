@@ -1,34 +1,29 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CarritoContext } from "../contexts/CarritoContext";
+import { useProductosContext } from "../contexts/ProductosContext";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function TarjetaProductoDetalle({}) {
     const {agregarAlCarrito} = useContext(CarritoContext);
     const {id} = useParams();
-    const [producto, setProducto] = useState(null);
+    const {obtenerProducto, productoEncontrado} = useProductosContext();
+    const {admin} = useAuthContext();
+    //const [producto, setProducto] = useState(null);
     const [error, setError] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [cantidad, setCantidad] = useState(1);
 
     useEffect(() => {
-            fetch('https://68332333c3f2222a8cb508d1.mockapi.io/productos')
-            .then((respuesta) => (respuesta.json()))
-            .then((datos) => {
-                const productoEncontrado = datos.find((item) => item.id === id);
-                if (productoEncontrado) {
-                    setProducto(productoEncontrado);
-                } else {
-                    setError('producto no encontrado');
-                }
+            obtenerProducto(id)
+            .then(() => {
                 setCargando(false);
-                })
+            })
             .catch((error) => {
-                console.log(error)
-                setError('Hubo un problema al cargar el producto');
+                setError(error.message);
                 setCargando(false);
-            });
-        },
-        [id]);
+            })
+        },[id]);
 
         if (cargando) {
             return <p>Cargando...</p>
@@ -36,12 +31,12 @@ function TarjetaProductoDetalle({}) {
         if (error) {
             return <p>{error}</p>;
         }
-        if (!producto) {
+        if (!productoEncontrado) {
             return null;
         }
 
     function funcionCarrito() {
-        agregarAlCarrito({...producto, cantidad})
+        agregarAlCarrito({...productoEncontrado, cantidad})
     };
 
     function sumarCantidad() {
@@ -55,14 +50,13 @@ function TarjetaProductoDetalle({}) {
 
 
     return(
-        <div className='tarjeta' key={producto.id}>
-            <img src={producto.imagen} alt={'foto de '+producto.nombre}/>
-            <h2>{producto.nombre}</h2>
-            <p className='descripcion'>{producto.descripcion}</p>
-            <p className='precio'>${producto.precio}</p>
-            <div className='botonera'>
-                
-                <button onClick={funcionCarrito}>agregar al carrito</button>
+        <div className='tarjeta' key={productoEncontrado.id}>
+            <img src={productoEncontrado.imagen} alt={'foto de '+productoEncontrado.nombre}/>
+            <h2>{productoEncontrado.nombre}</h2>
+            <p className='descripcion'>{productoEncontrado.descripcion}</p>
+            <p className='precio'>${productoEncontrado.precio}</p>
+            <div className='botonera'> 
+                {admin ? <Link to={'/admin/editar/' + id}><button>editar producto</button></Link>: <button onClick={funcionCarrito}>agregar al carrito</button>}
                 <div>
                     <input type="number" name="cantidad" id="" value={cantidad} min='0'/>
                     <button onClick={sumarCantidad}>+</button>
