@@ -6,6 +6,7 @@ import { crearUsuario, loginConMailyPass } from "../auth/firebase";
 function Login() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
+  const [show, setShow] = useState(true);
   const { login, user, logout } = useAuthContext();
   //const navigate = useNavigate();
 
@@ -44,6 +45,11 @@ function Login() {
       alert(error.code + ' ' + error.message);
     });
   };
+
+  function handleShow(e) {
+    e.preventDefault();
+    setShow(!show);
+  };
   
 
   if (user) {
@@ -52,26 +58,32 @@ function Login() {
         <button type="submit">Cerrar Sesion</button>
       </form>
     )
-  } else
-  {
+  } else if (!user && show) {
     return (
       <>
-        {/* <form onSubmit={handleSubmit}>
-          <h2>Iniciar Sesion</h2>
-          <div>
-            <label>Usuario:</label>
-            <input
-              type="text"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)} />
-            <label htmlFor="">Contrasena</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-          </div>
-          <button type="submit">ingresar</button>
-        </form> */}
+        <form onSubmit={loguearseConMailyPass}>
+            <h2>Iniciar Sesion con email y contrasena</h2>
+            <div>
+              <label>Email:</label>
+              <input
+                type="email"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)} />
+              <label>Contrasena</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)} />
+            </div>
+            <button type="submit">ingresar</button>
+          </form>
+          <small>Si aun no estas registradx, <a onClick={handleShow} style={{cursor: 'pointer'}}>registrate</a></small>
+        </>
+
+    )
+  } else if (!user && !show) {
+    return (
+      <>
         <form onSubmit={registrarUsuario}>
           <h2>Registrarse</h2>
           <div>
@@ -88,22 +100,7 @@ function Login() {
           </div>
           <button type="submit">registrarse</button>
         </form>
-        <form onSubmit={loguearseConMailyPass}>
-          <h2>Iniciar Sesion con email y contrasena</h2>
-          <div>
-            <label>Email:</label>
-            <input
-              type="email"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)} />
-            <label>Contrasena</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-          </div>
-          <button type="submit">ingresar</button>
-        </form>
+        <small>Si ya estas registradx, <a onClick={handleShow} style={{cursor: 'pointer'}}>inicia sesion</a></small>
       </>
     )
   };

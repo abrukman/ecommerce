@@ -15,7 +15,7 @@ import { useAuthContext } from './contexts/AuthContext';
 import FormularioProducto from './components/formularioProducto';
 
 function App() {
-  const {user} = useAuthContext();
+  const {user, admin} = useAuthContext();
 
   return (
     <Router>
@@ -29,8 +29,8 @@ function App() {
           <Route path='/contacto' element={<Contacto />}/>
           <Route path='/carrito' element={user ? <Carrito /> : <Navigate to={'/login'} replace/>}/>
           <Route path='/productos/:id' element={<TarjetaProductoDetalle />}/>
-          <Route path='/admin' element={user ? <Admin /> : <Navigate to={'/login'} replace/>}/>
-          <Route path='/admin/agregar' element={<FormularioProducto />}/>
+          {/* <Route path='/admin' element={admin ? <Admin /> : <Navigate to={'/login'} replace/>}/> */}
+          <Route path='/admin/agregar' element={<FormularioProducto />}/> */
         </Routes>
         <Footer />
       </div>
