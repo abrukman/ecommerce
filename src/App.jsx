@@ -31,8 +31,8 @@ function App() {
           <Route path='/carrito' element={user ? <Carrito /> : <Navigate to={'/login'} replace/>}/>
           <Route path='/productos/:id' element={<TarjetaProductoDetalle />}/>
           {/* <Route path='/admin' element={admin ? <Admin /> : <Navigate to={'/login'} replace/>}/> */}
-          <Route path='/admin/agregar' element={<FormularioProducto />}/>
-          <Route path='/admin/editar/:id' element={<EditarProducto />}/>
+          <Route path='/admin/agregar' element={admin ? <FormularioProducto /> : <Navigate to={'/login'} replace />}/>
+          <Route path='/admin/editar/:id' element={admin ? <EditarProducto /> : <Navigate to={'/login'} replace/>}/>
         </Routes>
         <Footer />
       </div>

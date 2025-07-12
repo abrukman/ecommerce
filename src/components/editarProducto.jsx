@@ -32,7 +32,6 @@ function EditarProducto() {
         if(Object.keys(erroresValidacion).length === 0) {
            if (confirm(`Modificar los datos de ${producto.nombre}?`)) {
             actualizarProducto(producto);
-            alert(`${producto.nombre} ha sido actualizado correctamente`);
            };
         };
     };

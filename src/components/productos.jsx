@@ -19,7 +19,7 @@ function Productos({}) {
             setError(error.message);
             setCargando(false);
         })
-    }, []);}
+    }, [productos]);}
 
    /*  function funcionEnProductos(producto) {
         funcionCarrito(producto);

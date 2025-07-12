@@ -77,9 +77,24 @@ export function ProductosProvider({ children }) {
         };
     };
 
+    async function eliminarProducto(producto) {
+        try {
+            const respuesta = await fetch(`https://68332333c3f2222a8cb508d1.mockapi.io/productos/${producto.id}`, {
+                method: 'DELETE',
+            });
+            if(!respuesta.ok) {
+                alert('No se puede eliminar el producto');
+            }
+            alert(`${producto.nombre} eliminado correctamente`);
+        }
+        catch(error) {
+            alert(error.message);
+        };
+    }
+
 
     return (
-        <ProductosContext.Provider value={{productos, obtenerProductos, agregarProducto, obtenerProducto, productoEncontrado, actualizarProducto}}>
+        <ProductosContext.Provider value={{productos, obtenerProductos, agregarProducto, obtenerProducto, productoEncontrado, actualizarProducto, eliminarProducto}}>
             {children}
         </ProductosContext.Provider>
     );
