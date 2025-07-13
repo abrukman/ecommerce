@@ -13,7 +13,15 @@ export function AuthProvider({ children }) {
         };
         localStorage.setItem('authToken', token);
         setUser(username);
-        console.log(username, admin);
+    };
+
+    const isLoged = () => {
+        if (localStorage.authToken == 'fake-token-admin@gmail.com') {
+            setAdmin(true);
+            setUser(localStorage.authToken);
+        } else if (localStorage.length > 0) {
+            setUser(localStorage.authToken);
+        };
     };
 
     const logout = () => {
@@ -22,7 +30,7 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{user, login, logout, admin}}>
+        <AuthContext.Provider value={{user, login, logout, admin, isLoged}}>
             {children}
         </AuthContext.Provider>
     );

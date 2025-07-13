@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Home from './layouts/home'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -16,7 +16,12 @@ import FormularioProducto from './components/formularioProducto';
 import EditarProducto from './components/editarProducto';
 
 function App() {
-  const {user, admin} = useAuthContext();
+  const {user, admin, isLoged} = useAuthContext();
+
+useEffect(() => {
+  isLoged();
+}, []);
+
 
   return (
     <Router>

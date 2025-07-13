@@ -1,9 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import '../estilos/carrito.css';
 import { CarritoContext } from '../contexts/CarritoContext';
 
 export default function Carrito({}) {
-    const {productosCarrito, vaciarCarrito, borrarProductos} = useContext(CarritoContext);
+    const {productosCarrito, vaciarCarrito, borrarProductos, hayCarrito} = useContext(CarritoContext);
+    
+    useEffect(() => {
+      hayCarrito();
+    }, []);
 
     const total = productosCarrito.reduce((subtotal, producto) => 
         subtotal + producto.precio * producto.cantidad, 0

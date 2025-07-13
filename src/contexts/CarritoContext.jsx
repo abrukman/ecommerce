@@ -5,6 +5,16 @@ export const CarritoContext = createContext();
 export function CarritoProvider({children}) {
     const [productosCarrito, setProductosCarrito] = useState([]);
 
+    const hayCarrito = () => {
+        if(Object.hasOwn(localStorage, 'carrito')) {
+            const carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'));
+            console.log(carritoLocalStorage);
+            setProductosCarrito(carritoLocalStorage);
+        } else {
+            setProductosCarrito([]);
+        };
+    };
+
     const agregarAlCarrito = (producto) => {
         const existe = productosCarrito.find(p => p.id === producto.id);
         if (existe) {
@@ -18,14 +28,17 @@ export function CarritoProvider({children}) {
             })
 
             setProductosCarrito(carritoActualizado);
+            localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
         } else {
-            setProductosCarrito([...productosCarrito, producto])
+            setProductosCarrito([...productosCarrito, producto]);
+            localStorage.setItem('carrito', JSON.stringify([...productosCarrito, producto]));
         };
         alert('has agregado ' + producto.cantidad + ' ' + producto.nombre + ' al carrito');
     };
 
     const vaciarCarrito = () => {
         setProductosCarrito([]);
+        localStorage.removeItem('carrito');
     };
 
     function borrarProductos(id) {
@@ -33,7 +46,7 @@ export function CarritoProvider({children}) {
     };
 
     return (
-    <CarritoContext.Provider value={{productosCarrito, agregarAlCarrito, vaciarCarrito, borrarProductos}}>
+    <CarritoContext.Provider value={{productosCarrito, agregarAlCarrito, vaciarCarrito, borrarProductos, hayCarrito}}>
         {children}
     </CarritoContext.Provider>
     );
