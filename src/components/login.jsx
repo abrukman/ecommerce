@@ -2,25 +2,13 @@ import { useState } from "react";
 import { useAuthContext } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import { crearUsuario, loginConMailyPass } from "../auth/firebase";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 function Login() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(true);
   const { login, user, logout } = useAuthContext();
-  //const navigate = useNavigate();
-
-  /* const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if(usuario === 'admin' && password === '1234') {
-      login(usuario);
-      navigate('/');
-      alert(`logueado exitosamente como ${usuario}`);
-    } else {
-      alert('Credenciales incorrectas');
-    }
-  }; */
 
   function registrarUsuario(e) {
     e.preventDefault();
@@ -54,54 +42,68 @@ function Login() {
 
   if (user) {
     return (
-      <form onSubmit={logout}>
-        <button type="submit">Cerrar Sesion</button>
-      </form>
+      <Container fluid>
+        <Row className="justify-content-center mt-4">
+          <Col md={12} lg={2}>
+            <Form onSubmit={logout}>
+              <Button type="submit">Cerrar Sesión</Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     )
   } else if (!user && show) {
     return (
-      <>
-        <form onSubmit={loguearseConMailyPass}>
-            <h2>Iniciar Sesion con email y contrasena</h2>
-            <div>
-              <label>Email:</label>
-              <input
-                type="email"
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)} />
-              <label>Contrasena</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} />
-            </div>
-            <button type="submit">ingresar</button>
-          </form>
-          <small>Si aun no estas registradx, <a onClick={handleShow} style={{cursor: 'pointer'}}>registrate</a></small>
-        </>
+      <Container fluid>
+        <Row className="justify-content-center mt-4">
+          <Col md={12} lg={4}>
+            <h2 className="fs-4">Iniciar sesión con email y contraseña</h2>
+                <Form onSubmit={loguearseConMailyPass}>
+                    <Form.Group>
+                      <Form.Label>Email:</Form.Label>
+                      <Form.Control
+                        type="email"
+                        value={usuario}
+                        onChange={(e) => setUsuario(e.target.value)} />
+                      <Form.Label>Contraseña</Form.Label>
+                      <Form.Control
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)} />
+                    </Form.Group>
+                    <Button className='my-3' type="submit">ingresar</Button>
+                  </Form>
 
+              <small>Si aun no estas registradx, <a className='primary'onClick={handleShow} style={{textDecoration: 'underline',cursor: 'pointer'}}>registrate</a></small>
+          </Col>
+        </Row>
+      </Container>
     )
   } else if (!user && !show) {
     return (
-      <>
-        <form onSubmit={registrarUsuario}>
-          <h2>Registrarse</h2>
-          <div>
-            <label>Email:</label>
-            <input
-              type="text"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)} />
-            <label htmlFor="">Contrasena</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-          </div>
-          <button type="submit">registrarse</button>
-        </form>
-        <small>Si ya estas registradx, <a onClick={handleShow} style={{cursor: 'pointer'}}>inicia sesion</a></small>
-      </>
+      <Container fluid>
+        <Row className="justify-content-center mt-4">
+          <Col md={12} lg={4}>
+            <h2 className="fs-4">Registrarse</h2>
+            <Form onSubmit={registrarUsuario}>
+              <Form.Group>
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={usuario}
+                  onChange={(e) => setUsuario(e.target.value)} />
+                <Form.Label htmlFor="">Contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} />
+              </Form.Group>
+              <Button className='my-3'type="submit">registrarse</Button>
+            </Form>
+            <small>Si ya estas registradx, <a className='primary' onClick={handleShow} style={{textDecoration: 'underline',cursor: 'pointer'}}>inicia sesión</a></small>
+          </Col>
+        </Row>
+      </Container>
     )
   };
 };

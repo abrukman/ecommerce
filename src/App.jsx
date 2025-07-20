@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import './App.css'
+//import './App.css'
 import Home from './layouts/home'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/header';
-import Nav from './components/nav';
+import Barra from './components/nav';
 import Footer from './components/footer';
 import Productos from './components/productos';
 import Contacto from './components/contacto';
@@ -26,8 +26,8 @@ useEffect(() => {
   return (
     <Router>
       <div>
-        <Header />
-        <Nav />
+        {/* <Header /> */}
+        <Barra />
         <Routes>
           <Route path='/login' element={<Login />}/>
           <Route path='/' element={<Home />}/>

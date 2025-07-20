@@ -1,29 +1,19 @@
+import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../estilos/tarjetaProducto.css'
+//import '../estilos/tarjetaProducto.css'
 
 function Tarjeta({producto}) {
 
-    // const [cantidad, setCantidad] = useState(1);
-
-    /* function agregarAlCarrito() {
-        funcionCarrito({...producto, cantidad});
-    };
-
-    function sumarCantidad() {
-        setCantidad(cantidad + 1);        
-    };
-
-    function restarCantidad() {
-        cantidad === 1 ? setCantidad = 1 : setCantidad(cantidad - 1);
-    }; */
-
     return(
-        <div className='tarjeta' key={producto.id}>
-            <img src={producto.imagen} alt={'foto de '+producto.nombre}/>
-            <h2>{producto.nombre}</h2>
-            <p className='precio'>${producto.precio}</p>
-            <Link to={'/productos/' + producto.id}><button>ver mas</button></Link>
-        </div>
+        <Card style={{ width: '18rem' }} key={producto.id}>
+            <Card.Img variant="top" src={producto.imagen} alt={'foto de '+producto.nombre}/>
+            <Card.Body>
+            <Card.Title>{producto.nombre}</Card.Title>
+            <Link to={'/productos/'+ producto.id}>
+                <Button variant="secondary">ver más</Button>
+            </Link>
+            </Card.Body>
+        </Card>
     )
 }
 
