@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 //import './App.css'
 import Home from './layouts/home'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/header';
+//import Header from './components/header';
 import Barra from './components/nav';
 import Footer from './components/footer';
 import Productos from './components/productos';
@@ -10,7 +10,7 @@ import Contacto from './components/contacto';
 import Carrito from './components/carrito';
 import TarjetaProductoDetalle from './components/tarjetaProductoDetalle';
 import Login from './components/login';
-import Admin from './components/admin';
+//import Admin from './components/admin';
 import { useAuthContext } from './contexts/AuthContext';
 import FormularioProducto from './components/formularioProducto';
 import EditarProducto from './components/editarProducto';

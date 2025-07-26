@@ -1,9 +1,11 @@
 import { createContext, useContext, useState } from "react";
+import { useToastContext } from "./ToastContext";
 
 const ProductosContext = createContext();
 export function ProductosProvider({ children }) {
     const [productos, setProductos] = useState([]);
     const [productoEncontrado, setProductoEncontrado] = useState([]);
+    const { showToast } = useToastContext();
 
     function obtenerProductos() {
         return(
@@ -32,10 +34,12 @@ export function ProductosProvider({ children }) {
             });
             const data = await respuesta.json();
             console.log('Producto agregado: ', data);
-            alert(`Se ha agregado ${producto.nombre} correctamente`);
+            //alert(`Se ha agregado ${producto.nombre} correctamente`);
+            showToast(`Se ha agregado ${producto.nombre} correctamente`, 'success');
             } 
         catch (error) {
-        alert(error.message);
+        //alert(error.message);
+        showToast(`${error.code} ${error.message}`, 'danger');
         } 
     }
 
@@ -48,7 +52,8 @@ export function ProductosProvider({ children }) {
                     if (productoEncontrado) {
                         setProductoEncontrado(productoEncontrado);
                         } else {
-                            alert('producto no encontrado');
+                            //alert('producto no encontrado');
+                            showToast('Producto no encontrado', 'danger');
                         }
                     })
                 .catch((error) => {
@@ -67,13 +72,16 @@ export function ProductosProvider({ children }) {
                 body: JSON.stringify(producto)
             });
             if(!respuesta.ok) {
-                alert('No se puede actualizar el producto');
+                //alert('No se puede actualizar el producto');
+                showToast('No se puede actualizar el producto');
             }
             const data = await respuesta.json();
-            alert(`${producto.nombre} actualizado correctamente`);
+            //alert(`${producto.nombre} actualizado correctamente`);
+            showToast(`${producto.nombre} actualizado correctamente`, 'success');
         }
         catch(error) {
-            alert(error.message);
+            //alert(error.message);
+            showToast(`${error.code} ${error.message}`)
         };
     };
 
@@ -83,12 +91,15 @@ export function ProductosProvider({ children }) {
                 method: 'DELETE',
             });
             if(!respuesta.ok) {
-                alert('No se puede eliminar el producto');
+                //alert('No se puede eliminar el producto');
+                showToast('No se puede eliminar el producto', 'danger');
             }
-            alert(`${producto.nombre} eliminado correctamente`);
+            //alert(`${producto.nombre} eliminado correctamente`);
+            showToast(`${producto.nombre} eliminado correctamente`, 'success');
         }
         catch(error) {
-            alert(error.message);
+            //alert(error.message);
+            showToast(`${error.code} ${error.message}`);
         };
     }
 

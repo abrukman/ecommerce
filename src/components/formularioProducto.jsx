@@ -80,7 +80,7 @@ function FormularioProducto() {
                                 {errores.precio && <Form.Control.Feedback type='invalid'>{errores.precio}</Form.Control.Feedback>}
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Descripcion: </Form.Label>
+                            <Form.Label>Descripción: </Form.Label>
                             <Form.Control
                                 as={"textarea"}
                                 name="descripcion"

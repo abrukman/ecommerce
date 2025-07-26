@@ -1,9 +1,11 @@
 import { createContext, useState } from "react";
+import { useToastContext } from "./ToastContext";
 
 export const CarritoContext = createContext();
 
 export function CarritoProvider({children}) {
     const [productosCarrito, setProductosCarrito] = useState([]);
+    const { showToast } = useToastContext();
 
     const hayCarrito = () => {
         if(Object.hasOwn(localStorage, 'carrito')) {
@@ -33,7 +35,8 @@ export function CarritoProvider({children}) {
             setProductosCarrito([...productosCarrito, producto]);
             localStorage.setItem('carrito', JSON.stringify([...productosCarrito, producto]));
         };
-        alert('has agregado ' + producto.cantidad + ' ' + producto.nombre + ' al carrito');
+        //alert('has agregado ' + producto.cantidad + ' ' + producto.nombre + ' al carrito');
+        showToast(`Has agregado ${producto.cantidad} ${producto.nombre} al carrito`);
     };
 
     const vaciarCarrito = () => {

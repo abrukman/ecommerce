@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useAuthContext } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import { crearUsuario, loginConMailyPass } from "../auth/firebase";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Toast } from "react-bootstrap";
+import { useToastContext } from "../contexts/ToastContext";
 
 function Login() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(true);
   const { login, user, logout } = useAuthContext();
+  const { showToast } = useToastContext();
 
   function registrarUsuario(e) {
     e.preventDefault();
@@ -27,10 +29,12 @@ function Login() {
     loginConMailyPass(usuario, password)
     .then((user) => {
       login(usuario);
-      alert('logueado exitosamente como ' + usuario);
+      //alert('logueado exitosamente como ' + usuario);
+      showToast(`logueado exitosamente como ${usuario}`, 'success');
     })
     .catch((error) => {
-      alert(error.code + ' ' + error.message);
+      //alert(error.code + ' ' + error.message);
+      showToast(`${error.code}: ${error.message}`, 'danger');
     });
   };
 

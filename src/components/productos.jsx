@@ -36,7 +36,7 @@ function Productos({}) {
     } else {
         return(
         <>
-            <Container> 
+            <Container fluid className='pb-4'> 
                 <Row sm={1} md={2} lg={3} className='g-4 mt-2'>
                     {productos.map((producto) => (
                         <Col className='d-flex justify-content-center'>
