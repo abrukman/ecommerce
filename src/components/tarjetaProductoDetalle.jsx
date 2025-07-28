@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { CarritoContext } from "../contexts/CarritoContext";
 import { useProductosContext } from "../contexts/ProductosContext";
 import { useAuthContext } from "../contexts/AuthContext";
-import { Button, ButtonGroup, ButtonToolbar, Col, Container, Form, Image, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, ButtonToolbar, Col, Container, Form, Image, Modal, Row } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
@@ -17,6 +17,17 @@ function TarjetaProductoDetalle({}) {
     const [cargando, setCargando] = useState(true);
     const [cantidad, setCantidad] = useState(1);
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+
+    const toggleShow = () => setShow(!show);
+
+    const handleAceptar = () => {
+        eliminarProducto(productoEncontrado);
+        toggleShow();
+        setTimeout(() => {
+                navigate('/productos', {replace : true});
+            }, 1000);
+    }
     
 
     useEffect(() => {
@@ -52,14 +63,14 @@ function TarjetaProductoDetalle({}) {
         cantidad === 1 ? setCantidad = 1 : setCantidad(cantidad - 1);
     };
 
-    const handleEliminar = () => {
+    /* const handleEliminar = () => {
         if(confirm(`Se eliminara ${productoEncontrado.nombre} de la lista de productos. Estas seguro?`)) {
             eliminarProducto(productoEncontrado);
             setTimeout(() => {
                 navigate('/productos', {replace : true});
             }, 1000);            
-        };
-    };
+        }; 
+    };*/
 
 
 
@@ -86,7 +97,7 @@ function TarjetaProductoDetalle({}) {
                                 <Col md={12} lg={4}>
                                     {admin ? <Button className="w-100"
                                             variant='danger'
-                                            onClick={handleEliminar}
+                                            onClick={toggleShow}
                                             ><i class="bi bi-trash3-fill"></i>
                                         </Button> :
                                     <ButtonGroup className="h-100">
@@ -105,6 +116,21 @@ function TarjetaProductoDetalle({}) {
                     </Row>
                 </Col>
             </Row>
+            <Modal
+                show={show}
+                backdrop="static"
+                keyboard={false}
+                >
+                <Modal.Body>
+                {`Se eliminará ${productoEncontrado.nombre}.`}
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="danger" onClick={toggleShow}>
+                    Cancelar
+                </Button>
+                <Button variant="success" onClick={handleAceptar}>Aceptar</Button>
+                </Modal.Footer>
+            </Modal>
     </Container>
     )
 }

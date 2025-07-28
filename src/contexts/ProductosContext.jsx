@@ -6,6 +6,8 @@ export function ProductosProvider({ children }) {
     const [productos, setProductos] = useState([]);
     const [productoEncontrado, setProductoEncontrado] = useState([]);
     const { showToast } = useToastContext();
+    //const [filtro, setFiltro] = useState([]);
+    const [productosFiltrados, setProductosFiltrados] = useState([]);
 
     function obtenerProductos() {
         return(
@@ -14,6 +16,7 @@ export function ProductosProvider({ children }) {
         .then((datos) => {
             //console.log(datos);
             setProductos(datos);
+            setProductosFiltrados(datos);
             //setCargando(false);
         })
         .catch((error) => {
@@ -21,6 +24,15 @@ export function ProductosProvider({ children }) {
             //setError('Hubo un problema al cargar los productos');
             //setCargando(false);
         }));
+    };
+
+    function filtrarProducto(input) {
+        if (input.trim()=== 0) {
+            setProductosFiltrados(productos);
+        } else {
+            const resultado = productos.filter((producto) => producto.nombre.toLowerCase().includes(input.toLowerCase()));
+            setProductosFiltrados(resultado);
+            };
     };
 
     const agregarProducto = async (producto) => {
@@ -105,7 +117,7 @@ export function ProductosProvider({ children }) {
 
 
     return (
-        <ProductosContext.Provider value={{productos, obtenerProductos, agregarProducto, obtenerProducto, productoEncontrado, actualizarProducto, eliminarProducto}}>
+        <ProductosContext.Provider value={{productos, productosFiltrados, obtenerProductos, agregarProducto, obtenerProducto, productoEncontrado, actualizarProducto, eliminarProducto, filtrarProducto}}>
             {children}
         </ProductosContext.Provider>
     );

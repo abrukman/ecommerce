@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react';
 //import '../estilos/productos.css';
 import Tarjeta from "./tarjetaProducto";
 import { useProductosContext } from '../contexts/ProductosContext';
-import { Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup, Row, Spinner } from 'react-bootstrap';
 
 
 function Productos({}) {
-    const {productos, obtenerProductos} = useProductosContext();
+    const {productos, productosFiltrados, obtenerProductos, filtrarProducto} = useProductosContext();
     //const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
+    const [filtro, setFiltro] = useState('');
+    //const { productosFiltrados } = useProductosContext();
 
-    {useEffect(() => {
+    useEffect(() => {
         obtenerProductos()
         .then((productos) => {
             setCargando(false);
@@ -20,7 +22,12 @@ function Productos({}) {
             setError(error.message);
             setCargando(false);
         })
-    }, [productos]);}
+    }, []);
+
+    useEffect(() => {
+        //console.log(filtro);
+        filtrarProducto(filtro);
+    },[filtro, productos]);
 
     if (cargando) {
         return(
@@ -36,10 +43,24 @@ function Productos({}) {
     } else {
         return(
         <>
-            <Container fluid className='pb-4'> 
-                <Row sm={1} md={2} lg={3} className='g-4 mt-2'>
-                    {productos.map((producto) => (
-                        <Col className='d-flex justify-content-center'>
+            <Container fluid className='pb-4'>
+                <Row className='my-3'>
+                    <Col>
+                        <Form>
+                            <InputGroup>
+                                <InputGroup.Text><i class="bi bi-funnel-fill"></i></InputGroup.Text>
+                                <Form.Control
+                                    placeholder='busqueda por nombre'
+                                    aria-label='busqueda por nombre'
+                                    value={filtro}
+                                    onChange={(e) => setFiltro(e.target.value)}/>
+                            </InputGroup>
+                        </Form>
+                    </Col>
+                </Row> 
+                <Row sm={1} md={2} lg={3} className='my-4 g-4'>
+                    {productosFiltrados.map((producto) => (
+                        <Col className='d-flex justify-content-center' key={producto.id}>
                             <Tarjeta
                                 producto={producto}
                             />
