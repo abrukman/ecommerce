@@ -22,8 +22,8 @@ function Barra({}) {
                         {admin ? <Nav.Link><Link to="/admin/agregar">ADMIN</Link></Nav.Link> : <></>}
                     </Nav>
                     <Nav>
-                        <Nav.Link><Link to="/carrito"><i class="bi bi-cart-fill"></i> {productosCarrito.length > 0 ? productosCarrito.length : ''}</Link></Nav.Link>
-                        <Nav.Link><Link to="/login">{user ? <i class="bi bi-person-fill-check"></i> : <i class="bi bi-person-fill"></i>}</Link></Nav.Link>
+                        <Nav.Link><Link to="/carrito"><i class={productosCarrito.length > 0 ? "bi bi-cart-fill fs-5" : "bi bi-cart fs-5"}></i>{productosCarrito.length > 0 ? <small>{productosCarrito.length}</small> : ''}</Link></Nav.Link>
+                        <Nav.Link><Link to="/login">{user ? <i class="bi bi-person-fill-check fs-5"></i> : <i class="bi bi-person-fill fs-5"></i>}</Link></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

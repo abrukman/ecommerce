@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import '../estilos/carrito.css';
 import { CarritoContext } from '../contexts/CarritoContext';
+import { Button } from 'react-bootstrap';
 
 export default function Carrito({}) {
     const {productosCarrito, vaciarCarrito, borrarProductos, hayCarrito} = useContext(CarritoContext);
@@ -14,15 +14,15 @@ export default function Carrito({}) {
     );
 
     return(
-        <table className='carritoContainer'>
+        <table className='table table-striped table-primary table-hover align-middle fs-6'>
             <thead>
                 {total > 0 ? <tr>
-                    <td className='encabezado'></td>
-                    <td className='encabezado start'>producto</td>
-                    <td className='encabezado'>cantidad</td>
-                    <td className='encabezado'>precio/u</td>
-                    <td className='encabezado'>subtotal</td>
-                    <td className='encabezado'></td>
+                    <th></th>
+                    <th>PRODUCTO</th>
+                    <th>CANTIDAD</th>
+                    <th>PRECIO/U</th>
+                    <th>SUBTOTAL</th>
+                    <th></th>
                 </tr> : <></>}
             </thead>
             <tbody>
@@ -30,17 +30,17 @@ export default function Carrito({}) {
                 
                     return(
                         <tr className='productoRow' key={producto.id}>
-                            <td className='imagenCell'><img src={producto.imagen} alt={'foto de '+producto.nombre} /></td>
-                            <td className='nombreCell'>{producto.nombre}</td>
-                            <td>{producto.cantidad}</td>
-                            <td>${producto.precio}</td>
-                            <td>${producto.precio*producto.cantidad}</td>
-                            <td><button onClick={() => borrarProductos(producto.id)}>X</button></td>
+                            <td><img className='img-fluid img-thumbnail rounded align-middle' src={producto.imagen} alt={'foto de '+producto.nombre} width={150}/></td>
+                            <td className='align-middle'>{producto.nombre}</td>
+                            <td className='align-middle'>{producto.cantidad}</td>
+                            <td className='align-middle'>${producto.precio}</td>
+                            <td className='align-middle'>${producto.precio*producto.cantidad}</td>
+                            <td className='align-middle'><Button variant='outline-danger' size='sm' onClick={() => borrarProductos(producto.id)}><i class="bi bi-trash3"></i></Button></td>
                         </tr>
                     )
                 }) :
-                <tr><td className='vacio' colSpan={6}>Carrito vacío</td></tr>}
-                {total > 0 ? <tr className='total'><td></td><td></td><td></td><td>total</td><td>${total}</td><td><button onClick={vaciarCarrito}>X</button></td></tr> : <></>}
+                <tr><th className='align-middle text-center table-light fs-3' colSpan={6}>Carrito vacío</th></tr>}
+                {total > 0 ? <tr className='table-dark align-middle'><th></th><th></th><th></th><th>TOTAL</th><th>${total}</th><th><Button className='align-middle' variant='danger' onClick={vaciarCarrito}><i class="bi bi-trash3-fill"></i></Button></th></tr> : <></>}
             </tbody>
         </table>
     )

@@ -38,6 +38,10 @@ function Productos({}) {
         filtrarProducto(filtro);
     },[filtro, productos]);
 
+    useEffect(() => {
+        setPagActual(1);
+    },[filtro]);
+
     if (cargando) {
         return(
             <Container fluid>
@@ -78,7 +82,7 @@ function Productos({}) {
                 </Row>
                 {pagsTotales<= 1 ? <></> : <Row>
                     <Col>
-                        <Pagination className='justify-content-center'>
+                        <Pagination className='justify-content-center' size={isMobile ? 'sm' : 'undefined'}>
                             {[...Array(pagsTotales)].map((_,i) => (
                                 <Pagination.Item key={i} active={(i+1) === pagActual} onClick={() => setPagActual(i+1)}>{i + 1}</Pagination.Item>
                             ))}
