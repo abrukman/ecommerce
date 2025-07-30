@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 //import '../estilos/productos.css';
 import Tarjeta from "./tarjetaProducto";
 import { useProductosContext } from '../contexts/ProductosContext';
-import { Col, Container, Form, InputGroup, Row, Spinner } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup, Pagination, Row, Spinner } from 'react-bootstrap';
+import { useMediaQuery } from 'react-responsive';
 
 
 function Productos({}) {
@@ -12,6 +13,14 @@ function Productos({}) {
     const [error, setError] = useState(null);
     const [filtro, setFiltro] = useState('');
     //const { productosFiltrados } = useProductosContext();
+    const isMobile = useMediaQuery({maxWidth: 768});
+    const [pagActual, setPagActual] = useState(1);
+    const productosXpag = isMobile ? 4 : 9;
+    const ultimoProductoIndex = pagActual * productosXpag;
+    const primerProductoIndex = ultimoProductoIndex - productosXpag;
+    const productosActuales = productosFiltrados.slice(primerProductoIndex, ultimoProductoIndex);
+    const pagsTotales = Math.ceil(productosFiltrados.length / productosXpag);
+    
 
     useEffect(() => {
         obtenerProductos()
@@ -59,7 +68,7 @@ function Productos({}) {
                     </Col>
                 </Row> 
                 <Row sm={1} md={2} lg={3} className='my-4 g-4'>
-                    {productosFiltrados.map((producto) => (
+                    {productosActuales.map((producto) => (
                         <Col className='d-flex justify-content-center' key={producto.id}>
                             <Tarjeta
                                 producto={producto}
@@ -67,6 +76,15 @@ function Productos({}) {
                         </Col>
                     ))}
                 </Row>
+                {pagsTotales<= 1 ? <></> : <Row>
+                    <Col>
+                        <Pagination className='justify-content-center'>
+                            {[...Array(pagsTotales)].map((_,i) => (
+                                <Pagination.Item key={i} active={(i+1) === pagActual} onClick={() => setPagActual(i+1)}>{i + 1}</Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>}
             </Container>
         </>
     )
