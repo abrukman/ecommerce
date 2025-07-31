@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-//import '../estilos/productos.css';
 import Tarjeta from "./tarjetaProducto";
 import { useProductosContext } from '../contexts/ProductosContext';
 import { Col, Container, Form, InputGroup, Pagination, Row, Spinner } from 'react-bootstrap';
@@ -8,11 +7,9 @@ import { useMediaQuery } from 'react-responsive';
 
 function Productos({}) {
     const {productos, productosFiltrados, obtenerProductos, filtrarProducto} = useProductosContext();
-    //const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
     const [filtro, setFiltro] = useState('');
-    //const { productosFiltrados } = useProductosContext();
     const isMobile = useMediaQuery({maxWidth: 768});
     const [pagActual, setPagActual] = useState(1);
     const productosXpag = isMobile ? 4 : 9;
@@ -34,7 +31,6 @@ function Productos({}) {
     }, []);
 
     useEffect(() => {
-        //console.log(filtro);
         filtrarProducto(filtro);
     },[filtro, productos]);
 

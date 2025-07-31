@@ -29,11 +29,9 @@ function Login() {
     loginConMailyPass(usuario, password)
     .then((user) => {
       login(usuario);
-      //alert('logueado exitosamente como ' + usuario);
       showToast(`logueado exitosamente como ${usuario}`, 'success');
     })
     .catch((error) => {
-      //alert(error.code + ' ' + error.message);
       showToast(`${error.code}: ${error.message}`, 'danger');
     });
   };

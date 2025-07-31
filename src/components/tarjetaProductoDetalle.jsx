@@ -12,7 +12,6 @@ function TarjetaProductoDetalle({}) {
     const {id} = useParams();
     const {obtenerProducto, productoEncontrado, eliminarProducto} = useProductosContext();
     const {admin} = useAuthContext();
-    //const [producto, setProducto] = useState(null);
     const [error, setError] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [cantidad, setCantidad] = useState(1);
@@ -62,17 +61,6 @@ function TarjetaProductoDetalle({}) {
     function restarCantidad() {
         cantidad === 1 ? setCantidad = 1 : setCantidad(cantidad - 1);
     };
-
-    /* const handleEliminar = () => {
-        if(confirm(`Se eliminara ${productoEncontrado.nombre} de la lista de productos. Estas seguro?`)) {
-            eliminarProducto(productoEncontrado);
-            setTimeout(() => {
-                navigate('/productos', {replace : true});
-            }, 1000);            
-        }; 
-    };*/
-
-
 
     return(
         <Container className="mx-auto position-absolute top-50 start-50 translate-middle " key={productoEncontrado.id}>
@@ -136,24 +124,3 @@ function TarjetaProductoDetalle({}) {
 }
 
 export default TarjetaProductoDetalle;
-
-/*
-    <Card style={{ width: '18rem' }} key={productoEncontrado.id}>
-      <Card.Img variant="top" src={productoEncontrado.imagen} />
-      <Card.Body>
-        <Card.Title>{productoEncontrado.nombre}</Card.Title>
-        <Card.Text>
-          {productoEncontrado.descripcion}
-        </Card.Text>
-        <Card.Text>{productoEncontrado.precio}</Card.Text>
-        <ButtonToolBar>
-            {admin ? <Link to={'/admin/editar/' + id}><Button variant='warning'>editar producto</Button></Link> : <Button variant='primary' onClick={funcionCarrito}>agregar al carrito</Button>}
-            {admin ? <Button variant='danger' onClick={handleEliminar}>eliminar producto</Button> : <ButtonGroup>
-                    <Form.Control type="number" name="cantidad" id="" value={cantidad} min='0'/>
-                    <Button variant='secondary' onClick={sumarCantidad}>+</Button>
-                    <Button variant='secondary' onClick={restarCantidad}>-</Button>
-                </ButtonGroup>}
-        </ButtonToolBar>
-      </Card.Body>
-    </Card>
-*/

@@ -35,7 +35,6 @@ export function CarritoProvider({children}) {
             setProductosCarrito([...productosCarrito, producto]);
             localStorage.setItem('carrito', JSON.stringify([...productosCarrito, producto]));
         };
-        //alert('has agregado ' + producto.cantidad + ' ' + producto.nombre + ' al carrito');
         showToast(`Has agregado ${producto.cantidad} ${producto.nombre} al carrito`);
     };
 

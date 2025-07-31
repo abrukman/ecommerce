@@ -6,7 +6,6 @@ export function ProductosProvider({ children }) {
     const [productos, setProductos] = useState([]);
     const [productoEncontrado, setProductoEncontrado] = useState([]);
     const { showToast } = useToastContext();
-    //const [filtro, setFiltro] = useState([]);
     const [productosFiltrados, setProductosFiltrados] = useState([]);
 
     function obtenerProductos() {
@@ -14,15 +13,11 @@ export function ProductosProvider({ children }) {
         fetch('https://68332333c3f2222a8cb508d1.mockapi.io/productos')
         .then((respuesta) => (respuesta.json()))
         .then((datos) => {
-            //console.log(datos);
             setProductos(datos);
             setProductosFiltrados(datos);
-            //setCargando(false);
         })
         .catch((error) => {
-            console.log(error)
-            //setError('Hubo un problema al cargar los productos');
-            //setCargando(false);
+            console.log(error);
         }));
     };
 
@@ -46,11 +41,9 @@ export function ProductosProvider({ children }) {
             });
             const data = await respuesta.json();
             console.log('Producto agregado: ', data);
-            //alert(`Se ha agregado ${producto.nombre} correctamente`);
             showToast(`Se ha agregado ${producto.nombre} correctamente`, 'success');
             } 
         catch (error) {
-        //alert(error.message);
         showToast(`${error.code} ${error.message}`, 'danger');
         } 
     }
@@ -64,7 +57,6 @@ export function ProductosProvider({ children }) {
                     if (productoEncontrado) {
                         setProductoEncontrado(productoEncontrado);
                         } else {
-                            //alert('producto no encontrado');
                             showToast('Producto no encontrado', 'danger');
                         }
                     })
@@ -84,16 +76,13 @@ export function ProductosProvider({ children }) {
                 body: JSON.stringify(producto)
             });
             if(!respuesta.ok) {
-                //alert('No se puede actualizar el producto');
-                showToast('No se puede actualizar el producto');
+                showToast('No se puede actualizar el producto', 'danger');
             }
             const data = await respuesta.json();
-            //alert(`${producto.nombre} actualizado correctamente`);
             showToast(`${producto.nombre} actualizado correctamente`, 'success');
         }
         catch(error) {
-            //alert(error.message);
-            showToast(`${error.code} ${error.message}`)
+            showToast(`${error.code} ${error.message}`, 'danger');
         };
     };
 
@@ -103,15 +92,12 @@ export function ProductosProvider({ children }) {
                 method: 'DELETE',
             });
             if(!respuesta.ok) {
-                //alert('No se puede eliminar el producto');
                 showToast('No se puede eliminar el producto', 'danger');
             }
-            //alert(`${producto.nombre} eliminado correctamente`);
             showToast(`${producto.nombre} eliminado correctamente`, 'success');
         }
         catch(error) {
-            //alert(error.message);
-            showToast(`${error.code} ${error.message}`);
+            showToast(`${error.code} ${error.message}`, 'danger');
         };
     }
 

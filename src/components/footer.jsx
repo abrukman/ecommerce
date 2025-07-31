@@ -1,5 +1,3 @@
-//import '../estilos/footer.css';
-
 import { Nav, Navbar } from "react-bootstrap";
 
 function Footer() {

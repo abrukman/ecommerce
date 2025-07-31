@@ -44,11 +44,6 @@ function EditarProducto() {
         setErrores(erroresValidacion);
         if(Object.keys(erroresValidacion).length === 0) {
             toggleShow();
-           /* if (confirm(`Modificar los datos de ${producto.nombre}?`)) {
-            actualizarProducto(producto);
-            setTimeout(() => {
-                navigate('/productos', {replace : true});
-            }, 1000); */
            };
         };
     
