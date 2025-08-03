@@ -17,13 +17,13 @@ function Barra({}) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link><Link to="/">INICIO</Link></Nav.Link>
-                        <Nav.Link><Link to="/productos">PRODUCTOS</Link></Nav.Link>
-                        {admin ? <Nav.Link><Link to="/admin/agregar">ADMIN</Link></Nav.Link> : <></>}
+                        <Nav.Link as={Link} to={'/'}>INICIO</Nav.Link>
+                        <Nav.Link as={Link} to={'/productos'}>PRODUCTOS</Nav.Link>
+                        {admin ? <Nav.Link as={Link} to={'/admin/agregar'}>ADMIN</Nav.Link> : <></>}
                     </Nav>
                     <Nav>
-                        <Nav.Link><Link to="/carrito"><i class={productosCarrito.length > 0 ? "bi bi-cart-fill fs-5" : "bi bi-cart fs-5"}></i>{productosCarrito.length > 0 ? <small>{productosCarrito.length}</small> : ''}</Link></Nav.Link>
-                        <Nav.Link><Link to="/login">{user ? <i class="bi bi-person-fill-check fs-5"></i> : <i class="bi bi-person-fill fs-5"></i>}</Link></Nav.Link>
+                        <Nav.Link as={Link} to={'/carrito'} className='position-relative'><i className={productosCarrito.length > 0 ? "bi bi-cart-fill fs-5" : "bi bi-cart fs-5"}></i>{productosCarrito.length > 0 ? <span className='position-absolute top-50 start-50 translate-middle text-primary' style={{fontSize: '.75rem'}}>{productosCarrito.length}</span> : ''}</Nav.Link>
+                        <Nav.Link as={Link} to={'/login'}>{user ? <i class="bi bi-person-fill-check fs-5"></i> : <i className="bi bi-person-fill fs-5"></i>}</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
