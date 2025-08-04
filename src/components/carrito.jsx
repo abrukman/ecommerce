@@ -1,9 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { CarritoContext } from '../contexts/CarritoContext';
 import { Button, Col, Container, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Carrito({}) {
     const {productosCarrito, vaciarCarrito, borrarProductos, hayCarrito} = useContext(CarritoContext);
+    const isMobile = useMediaQuery({maxWidth: 768});
     
     useEffect(() => {
       hayCarrito();
@@ -15,24 +17,32 @@ export default function Carrito({}) {
 
     return(
         <Container fluid>
-        
-            <ListGroup variant='flush'>
+            {productosCarrito.length > 0 ?
+            <> 
+                <Row className='bg-secondary text-light fw-bold p-2 align-items-end'>
+                    {!isMobile && <Col></Col>}
+                    <Col>producto</Col>
+                    <Col>cantidad</Col>
+                    <Col>precio/u</Col>
+                    <Col>subtotal</Col>
+                    <Col></Col>
+                </Row>
                 {productosCarrito.map((producto) => {
                     return(
-                        <ListGroup.Item action>
-                            <Row>
-                                <Col><img className='img-fluid rounded' width={150} src={producto.imagen}/></Col>
+                            <Row className='p-2 border-bottom align-items-center'>
+                                {!isMobile && <Col><img className='img-fluid rounded' width={100} src={producto.imagen}/></Col>}
                                 <Col>{producto.nombre}</Col>
                                 <Col>{producto.cantidad}</Col>
                                 <Col>${producto.precio}</Col>
                                 <Col>${producto.precio*producto.cantidad}</Col>
-                                <Col><Button variant='outline-danger' size='sm' onClick={() => borrarProductos(producto.id)}><i class="bi bi-trash3"></i></Button></Col>
+                                <Col><Button variant='outline-danger' size='sm' onClick={() => borrarProductos(producto.id)}><i className="bi bi-trash3"></i></Button></Col>
                             </Row>
-                        </ListGroup.Item>
                     )
                 })}
-            </ListGroup>
-            <Row>
+            <Row className='bg-secondary text-light fw-bold p-2'>
+                {!isMobile && <Col></Col>}
+                <Col></Col>
+                <Col></Col>
                 <Col className='ms-auto'>
                     TOTAL
                 </Col>
@@ -43,37 +53,12 @@ export default function Carrito({}) {
                     <Button className='align-middle' variant='danger' onClick={vaciarCarrito}><i class="bi bi-trash3-fill"></i></Button>
                 </Col>
             </Row>
-
-           
-            {/* <table className='table table-striped table-primary table-hover align-middle fs-6'>
-                <thead>
-                    {total > 0 ? <tr>
-                        <th></th>
-                        <th>PRODUCTO</th>
-                        <th>CANTIDAD</th>
-                        <th>PRECIO/U</th>
-                        <th>SUBTOTAL</th>
-                        <th></th>
-                    </tr> : <></>}
-                </thead>
-                <tbody>
-                    {productosCarrito.length > 0 ? productosCarrito.map((producto) => {
-            
-                        return(
-                            <tr className='productoRow' key={producto.id}>
-                                <td><img className='img-fluid img-thumbnail rounded align-middle' src={producto.imagen} alt={'foto de '+producto.nombre} width={150}/></td>
-                                <td className='align-middle'>{producto.nombre}</td>
-                                <td className='align-middle'>{producto.cantidad}</td>
-                                <td className='align-middle'>${producto.precio}</td>
-                                <td className='align-middle'>${producto.precio*producto.cantidad}</td>
-                                <td className='align-middle'><Button variant='outline-danger' size='sm' onClick={() => borrarProductos(producto.id)}><i class="bi bi-trash3"></i></Button></td>
-                            </tr>
-                        )
-                    }) :
-                    <tr><th className='align-middle text-center table-light fs-3' colSpan={6}>Carrito vacío</th></tr>}
-                    {total > 0 ? <tr className='table-dark align-middle'><th></th><th></th><th></th><th>TOTAL</th><th>${total}</th><th><Button className='align-middle' variant='danger' onClick={vaciarCarrito}><i class="bi bi-trash3-fill"></i></Button></th></tr> : <></>}
-                </tbody>
-            </table> */}
+            </> : 
+            <Row className='justify-content-center align-items-center p-3'> 
+                <Col sm={12}>
+                    <h2 className='text-center text-danger'>Carrito vacío</h2>
+                </Col>
+            </Row>}
         </Container>
     )
 }
