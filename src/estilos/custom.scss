@@ -1,0 +1,19 @@
+// sobreescribir variables de bootstrap
+$primary: #e91e63;    // Fucsia
+$secondary: #00bcd4;  // Celeste
+$success: #4caf50;    // Verde
+$info: #03a9f4;       // Turquesa
+$light: #ffffff;      // Blanco
+$dark: #000000;       // Negro
+
+$font-family-base: 'Roboto Condensed', sans-serif;
+
+$headings-font-weight: 700; // títulos en bold
+$body-font-weight: 400;     // texto en regular
+
+.toast-header small {
+    font-weight: 700;
+} //titulos de los toasts
+
+// importar bootstrap
+@import "bootstrap/scss/bootstrap";
